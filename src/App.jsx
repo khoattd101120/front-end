@@ -1,33 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import RequireAuth from './components/Auth/RequireAuth'
+import Login from './components/Auth/Login'
+import MainLayout from './components/Layout/MainLayout'
+import Register from './components/Auth/Register'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Routes>
+      <Route path='/' element={<MainLayout />}>
+        <Route path='login' element={<Login />} />
+        <Route path='register' element={<Register />} />
+        <Route path='linkpage' element={<Login />} />
+        <Route path='unauthorized' element={<Login />} />
+
+
+        <Route element={<RequireAuth />} >
+          <Route path='/' element={<Login />} />
+          {/* <Route path='' element={<Login />} />
+          <Route path='' element={<Login />} />
+          <Route path='' element={<Login />} /> */}
+        </Route>
+
+        {/* <Route path='*' element={<Missing />} /> */}
+      </Route>
+    </Routes>
   )
 }
 
